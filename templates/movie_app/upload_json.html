@@ -1,0 +1,45 @@
+﻿{% extends 'movie_app/base.html' %}
+
+{% block content %}
+<div class="brutal-card">
+    <h2 class="text-uppercase mb-1">📁 ЗАГРУЗКА JSON</h2>
+
+    <div class="brutal-card" style="background: #FFFF00; margin-bottom: 2rem;">
+        <h3 style="margin: 0 0 1rem 0;">ФОРМАТ ФАЙЛА:</h3>
+        <div class="code-block">
+            [<br>
+            &nbsp;&nbsp;{<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"title": "НАЗВАНИЕ",<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"director": "РЕЖИССЕР",<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"year": 2024,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"genre": "ЖАНР",<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"duration": 120,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"rating": 8.5,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"description": "ОПИСАНИЕ",<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"cast": "АКТЕРЫ",<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"image_url": "URL"<br>
+            &nbsp;&nbsp;}<br>
+            ]
+        </div>
+    </div>
+
+    <form method="post" enctype="multipart/form-data" class="brutal-form">
+        {% csrf_token %}
+
+        <div class="mb-2">
+            <label class="font-weight-bold">ВЫБЕРИТЕ JSON ФАЙЛ</label>
+            {{ form.json_file }}
+            {% if form.json_file.errors %}
+            <div style="color: #FF0000; font-weight: bold;">
+                {% for error in form.json_file.errors %}⚠ {{ error }}<br>{% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="flex gap-1">
+            <button type="submit" class="brutal-btn brutal-btn-primary">📤 ЗАГРУЗИТЬ И ИМПОРТИРОВАТЬ</button>
+            <a href="{% url 'movie_app:movie_list' %}" class="brutal-btn">← НАЗАД</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

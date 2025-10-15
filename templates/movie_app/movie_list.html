@@ -1,0 +1,57 @@
+﻿{% extends 'movie_app/base.html' %}
+
+{% block content %}
+<div class="brutal-card text-center mb-2">
+    <h2 class="mb-0 text-uppercase">КИНОТЕКА</h2>
+    <p class="mb-0">COLLECTION OF BRUTAL CINEMA</p>
+</div>
+
+{% for movie in movies %}
+<div class="brutal-card">
+    <div class="brutal-grid">
+        <div>
+            <h3 class="brutal-movie-title">{{ movie.title|upper }}</h3>
+            <div class="brutal-movie-director">РЕЖИССЕР: {{ movie.director|upper }}</div>
+
+            <div class="mb-1">
+                <span class="brutal-tag">{{ movie.year }} ГОД</span>
+                <span class="brutal-tag">{{ movie.genre|upper }}</span>
+                <span class="brutal-tag">{{ movie.duration }} MIN</span>
+                <span class="brutal-rating">{{ movie.rating }}/10</span>
+            </div>
+
+            <div class="mb-1">
+                <strong>В РОЛЯХ:</strong><br>
+                {{ movie.cast }}
+            </div>
+
+            <div>
+                <strong>ОПИСАНИЕ:</strong><br>
+                {{ movie.description }}
+            </div>
+
+            {% if movie.image_url %}
+            <div class="mt-1">
+                <img src="{{ movie.image_url }}" alt="{{ movie.title }}" style="max-width: 300px; border: 4px solid #000;">
+            </div>
+            {% endif %}
+
+            <div class="mt-1" style="font-size: 0.8rem; color: #666;">
+                ДОБАВЛЕН: {{ movie.created_at|date:"d.m.Y H:i" }}
+            </div>
+        </div>
+
+        <div class="flex flex-column gap-05">
+            <a href="{% url 'movie_app:edit_movie' movie.id %}" class="brutal-btn brutal-btn-warning">РЕДАКТИРОВАТЬ</a>
+            <a href="{% url 'movie_app:delete_movie' movie.id %}" class="brutal-btn brutal-btn-danger">УДАЛИТЬ</a>
+        </div>
+    </div>
+</div>
+{% empty %}
+<div class="brutal-card text-center">
+    <h3>ФИЛЬМОВ НЕТ</h3>
+    <p>Коллекция пуста. Добавьте первый фильм!</p>
+    <a href="{% url 'movie_app:add_movie' %}" class="brutal-btn brutal-btn-primary">+ ДОБАВИТЬ ПЕРВЫЙ ФИЛЬМ</a>
+</div>
+{% endfor %}
+{% endblock %}

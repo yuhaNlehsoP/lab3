@@ -1,0 +1,29 @@
+﻿{% extends 'movie_app/base.html' %}
+
+{% block content %}
+<div class="brutal-card">
+    <h2 class="text-uppercase mb-2">РЕДАКТИРОВАТЬ: {{ movie.title|upper }}</h2>
+
+    <form method="post" class="brutal-form">
+        {% csrf_token %}
+
+        {% for field in form %}
+        <div class="mb-1">
+            <label class="font-weight-bold">{{ field.label|upper }}</label>
+            {{ field }}
+            {% if field.errors %}
+            <div style="color: #FF0000; font-weight: bold;">
+                {% for error in field.errors %}⚠ {{ error }}<br>{% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <div class="flex gap-1 mt-2 flex-wrap">
+            <button type="submit" class="brutal-btn brutal-btn-primary">💾 СОХРАНИТЬ ИЗМЕНЕНИЯ</button>
+            <a href="{% url 'movie_app:movie_list' %}" class="brutal-btn">← ОТМЕНА</a>
+            <a href="{% url 'movie_app:delete_movie' movie.id %}" class="brutal-btn brutal-btn-danger">🗑 УДАЛИТЬ ФИЛЬМ</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

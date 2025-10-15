@@ -1,0 +1,36 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎬 HaslaFilms</title>
+    <link rel="stylesheet" href="{% static 'css/brutal.css' %}">
+</head>
+<body>
+    <nav class="brutal-nav">
+        <div class="brutal-container">
+            <h1>🎬 HaslaFilms</h1>
+            <div class="header-actions">
+                <a href="{% url 'movie_app:movie_list' %}" class="brutal-btn">ВСЕ ФИЛЬМЫ</a>
+                <a href="{% url 'movie_app:add_movie' %}" class="brutal-btn brutal-btn-primary">+ ДОБАВИТЬ ФИЛЬМ</a>
+                <a href="{% url 'movie_app:upload_json' %}" class="brutal-btn">📁 ЗАГРУЗИТЬ JSON</a>
+                <a href="{% url 'movie_app:export_all_movies' %}" class="brutal-btn">💾 ЭКСПОРТ В JSON</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="brutal-container">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="brutal-alert {% if message.tags == 'success' %}brutal-alert-success{% elif message.tags == 'error' %}brutal-alert-error{% endif %}">
+            <strong>{{ message }}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

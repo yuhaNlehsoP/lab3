@@ -1,0 +1,28 @@
+﻿{% extends 'movie_app/base.html' %}
+
+{% block content %}
+<div class="brutal-card">
+    <h2 class="text-uppercase mb-2">ДОБАВИТЬ НОВЫЙ ФИЛЬМ</h2>
+
+    <form method="post" class="brutal-form">
+        {% csrf_token %}
+
+        {% for field in form %}
+        <div class="mb-1">
+            <label class="font-weight-bold">{{ field.label|upper }}</label>
+            {{ field }}
+            {% if field.errors %}
+            <div style="color: #FF0000; font-weight: bold;">
+                {% for error in field.errors %}⚠ {{ error }}<br>{% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <div class="flex gap-1 mt-2">
+            <button type="submit" class="brutal-btn brutal-btn-primary">💾 СОХРАНИТЬ ФИЛЬМ</button>
+            <a href="{% url 'movie_app:movie_list' %}" class="brutal-btn">← НАЗАД</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
