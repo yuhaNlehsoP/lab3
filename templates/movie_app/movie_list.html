@@ -42,8 +42,8 @@
         </div>
 
         <div class="flex flex-column gap-05">
-            <a href="{% url 'movie_app:edit_movie' movie.id %}" class="brutal-btn brutal-btn-warning">РЕДАКТИРОВАТЬ</a>
-            <a href="{% url 'movie_app:delete_movie' movie.id %}" class="brutal-btn brutal-btn-danger">УДАЛИТЬ</a>
+            <a href="{% url 'movie_app:edit_movie' movie.file_id %}" class="brutal-btn brutal-btn-warning">РЕДАКТИРОВАТЬ</a>
+            <a href="{% url 'movie_app:delete_movie' movie.file_id %}" class="brutal-btn brutal-btn-danger">УДАЛИТЬ</a>
         </div>
     </div>
 </div>
